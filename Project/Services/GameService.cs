@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ConsoleAdventure.Project.Interfaces;
 using ConsoleAdventure.Project.Models;
@@ -14,15 +15,20 @@ namespace ConsoleAdventure.Project
       _game = new Game();
       Messages = new List<string>();
     }
+    public string GetDetails()
+    {
+
+      return _game.CurrentRoom.GetTemplate() + System.Environment.NewLine + _game.CurrentPlayer.GetTemplate();
+    }
     public void Go(string direction)
     {
       string from = _game.CurrentRoom.Name;
-      _game.CurrentRoom = _game.CurrentRoom.Go();
+      _game.CurrentRoom = _game.CurrentRoom.Go(direction);
       string to = _game.CurrentRoom.Name;
     }
     public void Help()
     {
-      throw new System.NotImplementedException();
+      Messages.Add($"Commands: Go = move through exits\n Inventory = Will show what you have in your Inventory\n Look = Check your surroundings and get details\n TakeItem = pickup any item available in the room\n UseItem = Use item in your inventory by its name  ");
     }
 
     public void Inventory()
@@ -32,13 +38,16 @@ namespace ConsoleAdventure.Project
 
     public void Look()
     {
-      throw new System.NotImplementedException();
+      Messages.Add($"Room: {_game.CurrentRoom.Description}\n");
+
     }
 
-    public void Quit()
+    public void Quit(string input)
     {
-      throw new System.NotImplementedException();
+      string command = Console.ReadLine().ToLower();
+      Environment.Exit(0);
     }
+
     ///<summary>
     ///Restarts the game 
     ///</summary>
@@ -49,12 +58,21 @@ namespace ConsoleAdventure.Project
 
     public void Setup(string playerName)
     {
-      throw new System.NotImplementedException();
+      playerName = _game.CurrentPlayer.Name;
+      //   Messages.Add(_game.CurrentRoom.Description);
+      _game.Setup();
     }
     ///<summary>When taking an item be sure the item is in the current room before adding it to the player inventory, Also don't forget to remove the item from the room it was picked up in</summary>
     public void TakeItem(string itemName)
     {
-      throw new System.NotImplementedException();
+      if (_game.CurrentRoom.Items.Count == 0)
+      {
+        Messages.Add("Nothing to loot");
+        return;
+      }
+      Messages.Add($"Looting {_game.CurrentRoom.Items.Count} Items");
+      _game.CurrentPlayer.Inventory.AddRange(_game.CurrentRoom.Items);
+      _game.CurrentRoom.Items.Clear();
     }
     ///<summary>
     ///No need to Pass a room since Items can only be used in the CurrentRoom

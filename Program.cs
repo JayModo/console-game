@@ -1,5 +1,6 @@
 ﻿using System;
 using ConsoleAdventure.Project;
+using ConsoleAdventure.Project.Controllers;
 
 namespace ConsoleAdventure
 {
@@ -7,6 +8,7 @@ namespace ConsoleAdventure
   {
     public static void Main(string[] args)
     {
+
       Console.WriteLine(@"
       
  ▄▄▄▄    ▄▄▄     ▄▄▄█████▓     ██████  ██▓▓█████   ▄████ ▓█████ 
@@ -20,6 +22,10 @@ namespace ConsoleAdventure
  ░            ░  ░                 ░   ░     ░  ░      ░    ░  ░
       ░                                                         
  ");
+
+      new GameController().Run();
+
     }
+
   }
 }

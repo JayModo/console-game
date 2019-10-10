@@ -38,12 +38,16 @@ namespace ConsoleAdventure.Project.Models
 
       //setting the strarting point
       CurrentRoom = Room1;
+
+
     }
-    public Game(IRoom currentRoom, IPlayer currentPlayer)
+    public Game()
     {
-      CurrentRoom = currentRoom;
-      CurrentPlayer = currentPlayer;
+      CurrentPlayer = new Player();
+      CurrentRoom = CurrentRoom;
       Setup();
     }
+
+
   }
 }
