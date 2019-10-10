@@ -24,10 +24,10 @@ namespace ConsoleAdventure.Project.Models
 
     public string GetTemplate()
     {
-      string template = $" {Name}:\n";
+      string template = $" {Description}:\n";
       foreach (var exit in Exits)
       {
-        template += $"{exit.Value.Name} {exit.Key}\n  ";
+        template += $" You see a door to the {exit.Key}\n  ";
       }
       return template;
     }

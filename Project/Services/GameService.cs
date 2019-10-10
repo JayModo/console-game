@@ -17,7 +17,6 @@ namespace ConsoleAdventure.Project
     }
     public string GetDetails()
     {
-
       return _game.CurrentRoom.GetTemplate() + System.Environment.NewLine + _game.CurrentPlayer.GetTemplate();
     }
     public void Go(string direction)
@@ -25,6 +24,7 @@ namespace ConsoleAdventure.Project
       string from = _game.CurrentRoom.Name;
       _game.CurrentRoom = _game.CurrentRoom.Go(direction);
       string to = _game.CurrentRoom.Name;
+
     }
     public void Help()
     {
@@ -38,13 +38,16 @@ namespace ConsoleAdventure.Project
 
     public void Look()
     {
-      Messages.Add($"Room: {_game.CurrentRoom.Description}\n");
-
+      Console.Clear();
+      foreach (var item in _game.CurrentRoom.Items)
+      {
+        Messages.Add(item.Name);
+      }
     }
 
     public void Quit(string input)
     {
-      string command = Console.ReadLine().ToLower();
+
       Environment.Exit(0);
     }
 
@@ -58,9 +61,11 @@ namespace ConsoleAdventure.Project
 
     public void Setup(string playerName)
     {
-      playerName = _game.CurrentPlayer.Name;
-      //   Messages.Add(_game.CurrentRoom.Description);
+
+      //   playerName = _game.CurrentPlayer.Name;
+      // Messages.Add(_game.CurrentRoom.Description);
       _game.Setup();
+      Messages.Add($"Welcome {playerName}");
     }
     ///<summary>When taking an item be sure the item is in the current room before adding it to the player inventory, Also don't forget to remove the item from the room it was picked up in</summary>
     public void TakeItem(string itemName)

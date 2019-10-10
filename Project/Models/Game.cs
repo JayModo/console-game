@@ -12,10 +12,14 @@ namespace ConsoleAdventure.Project.Models
     {
       //Room to Room relationship
       Room Room1 = new Room("Room1", "your at the start of the cave there are 3 dark paths you have a small dim light that barely lights the way");
-      Room Room2 = new Room("Room2", "");
-      Room Room3 = new Room("Room3", "");
-      Room Room4 = new Room("Room4", "");
-      Room Room5 = new Room("Room5", "");
+
+      Room Room2 = new Room("Room2", "you enter a dark damp cavern with a cliff face. Use your light to 'look' around");
+
+      Room Room3 = new Room("Room3", "option cliff: you get to the top of the cliff  you see there is 2 paths east and west. West takes you back to the start . What Now?");
+
+      Room Room4 = new Room("Room4", "there is not enough light and you fall down a waterfall GAME OVER");
+
+      Room Room5 = new Room("Room5", "you enter the main chamber and see the Batmobile. You hear someone yell Who are you? Its bruce wayne. you have 2 choices : Say Hi! he thorws a batarang andf your dead your no superhero 2nd: use gun! you shoot bruce wayne which kills him becuase hes just a guy without his suit. You are now BATMAN!");
 
 
       Room1.Exits.Add("west", Room3);
@@ -30,8 +34,8 @@ namespace ConsoleAdventure.Project.Models
 
 
       // creating items to get/ use in certain rooms 
-      Item rope = new Item();
-      Item gun = new Item();
+      Item rope = new Item("Rope", "This is just long enough to get up that cliff");
+      Item gun = new Item("Gun", "This has got to be useful....");
 
       Room2.Items.Add(rope);
       Room3.Items.Add(gun);
