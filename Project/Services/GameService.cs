@@ -75,7 +75,7 @@ namespace ConsoleAdventure.Project
         Messages.Add("Nothing to loot");
         return;
       }
-      Messages.Add($"Looting {_game.CurrentRoom.Items.Count} Items");
+      Messages.Add($"Looting {_game.CurrentRoom.Items.Count} Item");
       _game.CurrentPlayer.Inventory.AddRange(_game.CurrentRoom.Items);
       _game.CurrentRoom.Items.Clear();
     }
@@ -86,7 +86,7 @@ namespace ConsoleAdventure.Project
     ///</summary>
     public void UseItem(string itemName)
     {
-      throw new System.NotImplementedException();
+      ;
     }
   }
 }
