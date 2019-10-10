@@ -15,7 +15,7 @@ namespace ConsoleAdventure.Project.Models
 
       Room Room2 = new Room("Room2", "you enter a dark damp cavern with a cliff face. Use your light to 'look' around");
 
-      Room Room3 = new Room("Room3", "option cliff: you get to the top of the cliff  you see there is 2 paths east and west. West takes you back to the start . What Now?");
+      Room Room3 = new Room("Room3", "you see there is 2 paths east and west and something shiny on the ground you may need to 'look' to find it.");
 
       Room Room4 = new Room("Room4", "there is not enough light and you fall down a waterfall GAME OVER");
 
