@@ -22,8 +22,15 @@ namespace ConsoleAdventure.Project
     public void Go(string direction)
     {
       string from = _game.CurrentRoom.Name;
+      if (from == "Room2")
+      {
+        Messages.Add("you can not go anywhere");
+        return;
+      }
+
       _game.CurrentRoom = _game.CurrentRoom.Go(direction);
       string to = _game.CurrentRoom.Name;
+
 
     }
     public void Help()
@@ -65,7 +72,7 @@ namespace ConsoleAdventure.Project
       //   playerName = _game.CurrentPlayer.Name;
       // Messages.Add(_game.CurrentRoom.Description);
       _game.Setup();
-      Messages.Add($"Welcome {playerName}");
+      Messages.Add($"Welcome {_game.CurrentRoom} {playerName}");
     }
     ///<summary>When taking an item be sure the item is in the current room before adding it to the player inventory, Also don't forget to remove the item from the room it was picked up in</summary>
     public void TakeItem(string itemName)

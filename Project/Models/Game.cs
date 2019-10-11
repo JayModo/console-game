@@ -19,7 +19,7 @@ namespace ConsoleAdventure.Project.Models
 
       Room Room4 = new Room("Room4", "there is not enough light and you fall down a waterfall GAME OVER");
 
-      Room Room5 = new Room("Room5", "you enter the main chamber and see the Batmobile. You hear someone yell Who are you? Its bruce wayne. you have 2 choices : Say Hi! he thorws a batarang andf your dead your no superhero 2nd: use gun! you shoot bruce wayne which kills him becuase hes just a guy without his suit. You are now BATMAN!");
+      Room Room5 = new Room("Room5", "you enter the main chamber and see the Batmobile. You hear someone yell Who are you? Its bruce wayne. You have 3 choices quit your mission, say hi, or use something from your inventory that might be 'useful'");
 
 
       Room1.Exits.Add("west", Room3);
