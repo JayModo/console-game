@@ -19,7 +19,7 @@ namespace ConsoleAdventure.Project
     }
     public string GetDetails()
     {
-      return _game.CurrentRoom.GetTemplate() + System.Environment.NewLine + _game.CurrentPlayer.GetTemplate();
+      return _game.CurrentRoom.GetTemplate() + System.Environment.NewLine;
     }
     public void Go(string direction)
     {
@@ -47,7 +47,10 @@ namespace ConsoleAdventure.Project
 
     public void Inventory()
     {
-      ;
+      foreach (var inv in _game.CurrentPlayer.Inventory)
+      {
+        Messages.Add($" Inventory: {inv.Name}");
+      }
     }
 
     public void Look()
@@ -55,7 +58,7 @@ namespace ConsoleAdventure.Project
       Console.Clear();
       foreach (var item in _game.CurrentRoom.Items)
       {
-        Messages.Add(item.Name + item.Description);
+        Messages.Add($"{item.Name}: {item.Description}");
       }
     }
 
@@ -89,7 +92,7 @@ namespace ConsoleAdventure.Project
         Messages.Add("Nothing to take...");
         return;
       }
-      Messages.Add($"Taking {_game.CurrentRoom.Items.Count} Item");
+      Messages.Add($"{_game.CurrentPlayer.Inventory.Count + 1} Item added to Inventory");
       _game.CurrentPlayer.Inventory.AddRange(_game.CurrentRoom.Items);
       _game.CurrentRoom.Items.Clear();
     }
@@ -100,7 +103,6 @@ namespace ConsoleAdventure.Project
     ///</summary>
     public void UseItem(string itemName)
     {
-      var direction = _game.CurrentRoom.Exits;
 
       var room = _game.CurrentRoom.Name.ToString();
 
@@ -112,20 +114,32 @@ namespace ConsoleAdventure.Project
         // {
         //   Messages.Add("that is a item");
         // }
-        if (room == "Room5" && item.Name.ToLower() == itemName)
+        switch (itemName)
         {
-          Messages.Add("PEW PEW You killed Bruce");
-        }
-        else if (room != "Room5" && itemName == "gun")
-        {
-          Messages.Add("PEW PEW");
-        }
-        else if (room == "Room2" && itemName == "rope")
-        {
-          Messages.Add("");
+          case "gun":
+            if (room == "Room5" && item.Name.ToLower() == itemName)
+            {
+              Messages.Add("PEW PEW You killed Bruce");
+              Console.Beep();
+              Console.Beep();
+            }
+            else if (room != "Room5" && item.Name.ToLower() == "gun")
+            {
+              Messages.Add("PEW PEW");
+              Console.Beep();
+              Console.Beep();
+            }
+            break;
+          case "rope":
+            if (room == "Room2" && item.Name == "Rope")
+            {
+              Messages.Add("you scaled the cliff");
+            }
+            break;
+          default:
+            return;
         }
       }
-      return;
     }
   }
 

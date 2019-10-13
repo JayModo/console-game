@@ -41,6 +41,9 @@ namespace ConsoleAdventure.Project.Controllers
         case "look":
           _gameService.Look();
           break;
+        case "inv":
+          _gameService.Inventory();
+          break;
         case "help":
           _gameService.Help();
           break;

@@ -14,7 +14,7 @@ namespace ConsoleAdventure.Project.Models
       string template = "Inventory: \n";
       foreach (var inv in Inventory)
       {
-        template += $"{inv.Name}: {inv.Description}";
+        template += $"{inv.Name}: {inv.Description}\n";
       }
       return template;
     }
