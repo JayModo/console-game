@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using ConsoleAdventure.Project.Interfaces;
 using ConsoleAdventure.Project.Models;
 
+
+
 namespace ConsoleAdventure.Project
 {
   public class GameService : IGameService
@@ -21,18 +23,21 @@ namespace ConsoleAdventure.Project
     }
     public void Go(string direction)
     {
+      string used = _game.CurrentPlayer.Inventory.ToString();
       string from = _game.CurrentRoom.Name;
       if (from == "Room2")
       {
+
         Messages.Add("you can not move without something to get up this cliff... ");
         return;
       }
       else
       {
+
         _game.CurrentRoom = _game.CurrentRoom.Go(direction);
         string to = _game.CurrentRoom.Name;
       }
-
+      return;
 
     }
     public void Help()
@@ -95,36 +100,40 @@ namespace ConsoleAdventure.Project
     ///</summary>
     public void UseItem(string itemName)
     {
-      Item item = new Item("gun", "pew pew");
-      foreach (Item i in _game.CurrentPlayer.Inventory)
+      var direction = _game.CurrentRoom.Exits;
+
+      var room = _game.CurrentRoom.Name.ToString();
+
+      for (int i = 0; i < _game.CurrentPlayer.Inventory.Count; i++)
       {
-        if (i.Name.ToLower() == itemName)
+        var item = _game.CurrentPlayer.Inventory[i];
+
+        // if (item.Name.ToLower() == itemName)
+        // {
+        //   Messages.Add("that is a item");
+        // }
+        if (room == "Room5" && item.Name.ToLower() == itemName)
         {
-          item = i;
+          Messages.Add("PEW PEW You killed Bruce");
+        }
+        else if (room != "Room5" && itemName == "gun")
+        {
+          Messages.Add("PEW PEW");
+        }
+        else if (room == "Room2" && itemName == "rope")
+        {
+          Messages.Add("");
         }
       }
-      if (item.Name == "gun" && _game.CurrentRoom.Name == "Room5")
-      {
-        Messages.Add("You killed bruce wayne!");
-        return;
-      }
-
-      // for (int i = 0; i < _game.CurrentPlayer.Inventory.Count; i++)
-      // {
-      //   var gunill = _game.CurrentRoom.Name;
-      //   var item = _game.CurrentPlayer.Inventory;
-      //   switch (itemName)
-      //   {
-      //     case "gun": 
-      //       Messages.Add("pew pew you killed batman");
-      //       break;
-
-      //   }
-      //   if (itemName in gunkill)
-
-      // }
-
+      return;
     }
-
   }
+
 }
+
+
+
+
+
+
+
