@@ -27,7 +27,7 @@ namespace ConsoleAdventure.Project.Models
       string template = $" {Description}:\n";
       foreach (var exit in Exits)
       {
-        template += $" You see a door to the {exit.Key}\n  ";
+        template += $" \t you can go : {exit.Key} \n  ";
       }
       return template;
     }

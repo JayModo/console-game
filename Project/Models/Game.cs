@@ -13,13 +13,13 @@ namespace ConsoleAdventure.Project.Models
       //Room to Room relationship
       Room Room1 = new Room("Room1", "your at the start of the cave there are 3 dark paths you have a small dim light that barely lights the way");
 
-      Room Room2 = new Room("Room2", "you enter a dark damp cavern with a cliff face. Use your light to 'look' around");
+      Room Room2 = new Room("Room2", "you fall into a dark damp cavern with a cliff face. Before you fell you saw there was a way out. There is no way to escape mabey you can 'look' to see if there is anything in the cavern");
 
-      Room Room3 = new Room("Room3", "you see there is 2 paths east and west and something shiny on the ground you may need to 'look' to find it.");
+      Room Room3 = new Room("Room3", "you see there is 2 paths east and west and something shiny on the ground you may need to get close and 'look' to see it.");
 
       Room Room4 = new Room("Room4", "there is not enough light and you fall down a waterfall GAME OVER");
 
-      Room Room5 = new Room("Room5", "you enter the main chamber and see the Batmobile. You hear someone yell Who are you? Its bruce wayne. You have 3 choices quit your mission, say hi, or use something from your inventory that might be 'useful'");
+      Room Room5 = new Room("Room5", "you enter the main chamber and see the Batmobile. You hear someone yell Who are you? Its bruce wayne! You have 3 choices quit your mission, say hi, or you may have something in your inventory that would be Useful'");
 
 
       Room1.Exits.Add("west", Room3);

@@ -50,6 +50,9 @@ namespace ConsoleAdventure.Project.Controllers
         case "take":
           _gameService.TakeItem(option);
           break;
+        case "use":
+          _gameService.UseItem(option);
+          break;
 
       }
       //NOTE this will take the user input and parse it into a command and option.
