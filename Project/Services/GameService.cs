@@ -21,6 +21,7 @@ namespace ConsoleAdventure.Project
     {
       return _game.CurrentRoom.GetTemplate() + System.Environment.NewLine;
     }
+
     public void Go(string direction)
     {
       // string used = _game.CurrentPlayer.Inventory.ToString();
@@ -45,7 +46,7 @@ namespace ConsoleAdventure.Project
     }
     public void Help()
     {
-      Messages.Add($"Commands: 'Go' = move through exits\n 'Inventory' = Will show what you have in your Inventory\n 'Look' = Check your surroundings and get details\n 'Take Item' = pickup any item available in the room\n 'Use Item' = Use item in your inventory by its name  ");
+      Messages.Add($"Commands: 'Go' = move through exits\n 'Inv' = Will show what you have in your Inventory\n 'Look' = Check your surroundings and get details\n 'Take Item' = pickup any item available in the room\n 'Use Item' = Use item in your inventory by its name  ");
     }
 
     public void Inventory()
@@ -88,7 +89,7 @@ namespace ConsoleAdventure.Project
     {
       Console.Clear();
       _game.CurrentPlayer.Inventory.Clear();
-      Setup("");
+      _game.Setup();
     }
 
     public void Setup(string playerName)
@@ -97,7 +98,7 @@ namespace ConsoleAdventure.Project
       //   playerName = _game.CurrentPlayer.Name;
       // Messages.Add(_game.CurrentRoom.Description);
       _game.Setup();
-      Messages.Add($"Welcome {playerName}");
+      Messages.Add($"{playerName}");
     }
     ///<summary>When taking an item be sure the item is in the current room before adding it to the player inventory, Also don't forget to remove the item from the room it was picked up in</summary>
     public void TakeItem(string itemName)
@@ -110,6 +111,7 @@ namespace ConsoleAdventure.Project
       Messages.Add($"{_game.CurrentPlayer.Inventory.Count + 1} Item added to Inventory");
       _game.CurrentPlayer.Inventory.AddRange(_game.CurrentRoom.Items);
       _game.CurrentRoom.Items.Clear();
+
     }
     ///<summary>
     ///No need to Pass a room since Items can only be used in the CurrentRoom
@@ -123,20 +125,33 @@ namespace ConsoleAdventure.Project
 
       var room = _game.CurrentRoom.Name.ToString();
 
-      for (int i = 0; i < _game.CurrentPlayer.Inventory.Count; i++)
-      {
-        var item = _game.CurrentPlayer.Inventory[i];
+      // for (int i = 0; i < _game.CurrentPlayer.Inventory.Count; i++)
+      // {
+      itemName = itemName.ToLower();
+      var item = _game.CurrentPlayer.Inventory.Find(i => i.Name.ToLower() == itemName);
+      if (item == null) { Messages.Add("You dont have a " + itemName); return; }
 
-        // if (item.Name.ToLower() == itemName)
-        // {
-        //   Messages.Add("that is a item");
-        // }
-        switch (itemName)
-        {
-          case "banana":
-            if (room == "Room5" && item.Name.ToLower() == itemName)
-            {
-              Messages.Add(@"
+      // if (item.Name.ToLower() == itemName)
+      // {
+      //   Messages.Add("that is a item");
+      // }
+      switch (itemName)
+      {
+        case "rope":
+          if (room == "Room2")
+          {
+            _game.CurrentPlayer.Inventory.Remove(item);
+            Messages.Add("After serveral attemps you manage to hook the rope on something and climb out");
+            _game.CurrentRoom.Description = "You made it to the top of the cliff and can see your exits";
+            _game.UnlockRoom(_game.CurrentRoom, "west", "Room3");
+            _game.UnlockRoom(_game.CurrentRoom, "east", "Room4");
+            _game.UnlockRoom(_game.CurrentRoom, "south", "Room1");
+          }
+          break;
+        case "banana":
+          if (room == "Room5" && item.Name.ToLower() == itemName)
+          {
+            Messages.Add(@"
  _
 //\
 V  \
@@ -150,14 +165,15 @@ V  \
         `. `-_     ``--..''       _.-' ,'
           `-_ `-.___        __,--'   ,'
              `-.__  `----""");
-              Messages.Add("You ate the banana... But Bruce wayne threw his batarang at you and killed you..... GAME OVER!");
-              Messages.Add("type 'quit' to end the game or 'reset' to start over");
-            }
-            break;
-          case "gun":
-            if (room == "Room5" && item.Name.ToLower() == itemName)
-            {
-              Messages.Add(@"
+            Messages.Add("You ate the banana... But Bruce wayne threw his batarang at you and killed you..... GAME OVER!");
+            Messages.Add("type 'quit' to end the game or 'reset' to start over");
+
+          }
+          break;
+        case "gun":
+          if (room == "Room5" && item.Name.ToLower() == itemName)
+          {
+            Messages.Add(@"
               
                 T\ T\
                 | \| \
@@ -186,28 +202,28 @@ V  \
  .           /  \                   .          .
               
               ");
-              Messages.Add("PEW PEW You killed Bruce Wayne You are now BATMAN!");
+            Messages.Add("PEW PEW You killed Bruce Wayne You are now BATMAN!");
 
-              Console.Beep(freq, duration);
-              Console.Beep(freq, duration);
-              Messages.Add("press any button to reset");
-              Reset();
+            Console.Beep(freq, duration);
+            Console.Beep(freq, duration);
+            Messages.Add("press any button to reset");
+            Reset();
 
 
 
-            }
-            else if (room != "Room5" && item.Name.ToLower() == "gun")
-            {
-              Messages.Add("PEW PEW");
-              Console.Beep();
-              Console.Beep();
-            }
-            break;
-          default:
-            return;
-        }
+          }
+          else if (room != "Room5" && item.Name.ToLower() == "gun")
+          {
+            Messages.Add("PEW PEW");
+            Console.Beep();
+            Console.Beep();
+          }
+          break;
+        default:
+          return;
       }
     }
+
   }
 
 }

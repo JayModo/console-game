@@ -22,7 +22,9 @@ namespace ConsoleAdventure.Project.Controllers
 
         Print();
         GetUserInput();
+
       }
+
     }
 
     //NOTE Gets the user input, calls the appropriate command, and passes on the option if needed.
