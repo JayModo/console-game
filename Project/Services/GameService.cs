@@ -70,7 +70,7 @@ namespace ConsoleAdventure.Project
       Console.Clear();
       foreach (var item in _game.CurrentRoom.Items)
       {
-        Messages.Add($"{item.Name}: {item.Description}");
+        Messages.Add($"You found A  {item.Name}: {item.Description}");
       }
     }
 

@@ -30,7 +30,7 @@ namespace ConsoleAdventure.Project.Models
       Room2.Exits.Add("east", Room4);
       Room2.Exits.Add("south", Room1);
 
-
+      Room3.Exits.Add("east", Room2);
       Room3.Exits.Add("south", Room1);
       Room3.Exits.Add("north", Room5);
 
