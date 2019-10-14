@@ -38,6 +38,9 @@ namespace ConsoleAdventure.Project.Controllers
         case "quit":
           _gameService.Quit(input);
           break;
+        case "reset":
+          _gameService.Reset();
+          break;
         case "look":
           _gameService.Look();
           break;

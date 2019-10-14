@@ -23,21 +23,24 @@ namespace ConsoleAdventure.Project
     }
     public void Go(string direction)
     {
-      string used = _game.CurrentPlayer.Inventory.ToString();
-      string from = _game.CurrentRoom.Name;
-      if (from == "Room2")
-      {
+      // string used = _game.CurrentPlayer.Inventory.ToString();
+      // string to = _game.CurrentRoom.Name.ToString();
+      // string to = _game.CurrentRoom.Exits.ToString();
 
-        Messages.Add("you can not move without something to get up this cliff... ");
-        return;
-      }
-      else
-      {
+      _game.CurrentRoom = _game.CurrentRoom.Go(direction);
 
-        _game.CurrentRoom = _game.CurrentRoom.Go(direction);
-        string to = _game.CurrentRoom.Name;
+      if (_game.CurrentRoom.Name == "Room4")
+      {
+        Messages.Add("type 'quit' to end the game or 'reset' to start over");
       }
       return;
+
+      // used = "rope";
+      // to = from;\
+
+      // string to = _game.CurrentRoom.Name;
+
+      // return;
 
     }
     public void Help()
@@ -47,9 +50,18 @@ namespace ConsoleAdventure.Project
 
     public void Inventory()
     {
-      foreach (var inv in _game.CurrentPlayer.Inventory)
+      if (_game.CurrentPlayer.Inventory == null)
       {
-        Messages.Add($" Inventory: {inv.Name}");
+        Messages.Add("Nothing in your Inventory");
+      }
+      else
+      {
+        foreach (var inv in _game.CurrentPlayer.Inventory)
+        {
+          Console.WriteLine("Inventory:");
+          Messages.Add($"{inv.Name}");
+
+        }
       }
     }
 
@@ -65,6 +77,7 @@ namespace ConsoleAdventure.Project
     public void Quit(string input)
     {
 
+      Console.Clear();
       Environment.Exit(0);
     }
 
@@ -73,7 +86,9 @@ namespace ConsoleAdventure.Project
     ///</summary>
     public void Reset()
     {
-      throw new System.NotImplementedException();
+      Console.Clear();
+      _game.CurrentPlayer.Inventory.Clear();
+      Setup("");
     }
 
     public void Setup(string playerName)
@@ -103,6 +118,8 @@ namespace ConsoleAdventure.Project
     ///</summary>
     public void UseItem(string itemName)
     {
+      int freq = 800;
+      int duration = 200;
 
       var room = _game.CurrentRoom.Name.ToString();
 
@@ -116,24 +133,74 @@ namespace ConsoleAdventure.Project
         // }
         switch (itemName)
         {
+          case "banana":
+            if (room == "Room5" && item.Name.ToLower() == itemName)
+            {
+              Messages.Add(@"
+ _
+//\
+V  \
+ \  \_
+  \,'.`-.
+   |\ `. `.       
+   ( \  `. `-.                        _,.-:\
+    \ \   `.  `-._             __..--' ,-';/
+     \ `.   `-.   `-..___..---'   _.--' ,'/
+      `. `.    `-._        __..--'    ,' /
+        `. `-_     ``--..''       _.-' ,'
+          `-_ `-.___        __,--'   ,'
+             `-.__  `----""");
+              Messages.Add("You ate the banana... But Bruce wayne threw his batarang at you and killed you..... GAME OVER!");
+              Messages.Add("type 'quit' to end the game or 'reset' to start over");
+            }
+            break;
           case "gun":
             if (room == "Room5" && item.Name.ToLower() == itemName)
             {
-              Messages.Add("PEW PEW You killed Bruce");
-              Console.Beep();
-              Console.Beep();
+              Messages.Add(@"
+              
+                T\ T\
+                | \| \
+                |  |  :
+           _____I__I  |
+         .'            '.
+       .'                '
+       |   ..             '
+       |  /__.            |
+       :.' -'             |
+      /__.                |
+     /__, \               |
+        |__\        _|    |
+        :  '\     .'|     |
+        |___|_,,,/  |     |    _..--.
+     ,--_-   |     /'      \../ /  /\\
+    ,'|_ I---|    7    ,,,_/ / ,  / _\\
+  ,-- 7 \|  / ___..,,/   /  ,  ,_/   '-----.
+ /   ,   \  |/  ,____,,,__,,__/            '\
+,   ,     \__,,/                             |
+| '.       _..---.._                         !.
+! |      .' z_M__s. '.                        |
+.:'      | (-_ _--')  :          L            !
+.'.       '.  Y    _.'             \,         :
+ .          '-----'                 !          .
+ .           /  \                   .          .
+              
+              ");
+              Messages.Add("PEW PEW You killed Bruce Wayne You are now BATMAN!");
+
+              Console.Beep(freq, duration);
+              Console.Beep(freq, duration);
+              Messages.Add("press any button to reset");
+              Reset();
+
+
+
             }
             else if (room != "Room5" && item.Name.ToLower() == "gun")
             {
               Messages.Add("PEW PEW");
               Console.Beep();
               Console.Beep();
-            }
-            break;
-          case "rope":
-            if (room == "Room2" && item.Name == "Rope")
-            {
-              Messages.Add("you scaled the cliff");
             }
             break;
           default:
