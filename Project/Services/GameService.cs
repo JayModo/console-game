@@ -167,7 +167,9 @@ V  \
              `-.__  `----""");
             Messages.Add("You ate the banana... But Bruce wayne threw his batarang at you and killed you..... GAME OVER!");
             Messages.Add("type 'quit' to end the game or 'reset' to start over");
-
+            _game.Setup();
+            Console.Clear();
+            _game.CurrentPlayer.Inventory.Clear();
           }
           break;
         case "gun":
@@ -207,7 +209,10 @@ V  \
             Console.Beep(freq, duration);
             Console.Beep(freq, duration);
             Messages.Add("press any button to reset");
-            Reset();
+            _game.Setup();
+            Console.Clear();
+            _game.CurrentPlayer.Inventory.Clear();
+
 
 
 
